@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Js Fundamentals</title>
+  <link rel="stylesheet" href="color.css" />
+</head>
+<body>
+
+  <header>
+    <h1>LAB2 - Introduction to JavaScript</h1>
+    <p>Topics: var/let/const, Functions, Arrow Functions, Objects, map(), filter(), Spread Operator</p>
+  </header>
+
+  <nav id="navbar">
+    <a href="#variables">1. var, let, const</a>
+    <a href="#functions">2. Functions</a>
+    <a href="#arrow">3. Arrow Functions</a>
+    <a href="#objects">4. Objects</a>
+    <a href="#map">5. map()</a>
+    <a href="#filter">6. filter()</a>
+    <a href="#spread">7. Spread Operator</a>
+  </nav>
+
+  <main>
+
+    <section id="variables">
+      <h2>1. var, let, const</h2>
+
+      <p>
+        In JavaScript, variables are used to store data. There are three keywords to declare a variable:
+        "var", "let", and "const". Each one behaves differently
+        in terms of scope (where the variable can be accessed) and
+        reassignment (whether user can give it a new value later).
+      </p>
+
+      <ul>
+        <li>
+          <strong>var</strong> — This is the old way of declaring variables.
+          It is function-scoped, i.e it is accessible anywhere inside the function it
+          was declared in, not just the block. It is also hoisted to the top of its scope,
+          which can cause confusing bugs. In modern JavaScript, user should avoid using var.
+        </li>
+        <li>
+          <strong>let</strong> — It is Introduced in ES6. It is block-scoped, i.e it only
+          exists inside the pair of curly braces "{ }" where it was declared.
+          It can be reassigned to a different value. "let" can be used when user need to
+          update the variable later (for example, a counter in a loop).
+        </li>
+        <li>
+          <strong>const</strong> — It is Also introduced in ES6. It is block-scoped like "let",
+          but once user assign a value, it cannot be reassigned. "const" is used
+          by default for values that should not change. If the value is an object or array,
+          the contents inside it can still be changed. only the variable binding is locked.
+        </li>
+      </ul>
+
+      <h3>Example</h3>
+      <pre><code>//var - function scoped, can be reassigned
+var name = "Alice";
+name = "Bob"; // allowed
+
+// let - block scoped, can be reassigned
+let age = 20;
+age = 21; // allowed
+
+// const - block scoped, cannot be reassigned
+const country = "Nepal";
+// country = "India"; // ERROR: Assignment to constant variable
+
+// const with an array - contents can still change
+const colors = ["red", "green"];
+colors.push("blue"); // allowed - we are changing the array contents
+console.log(colors); // ["red", "green", "blue"]
+
+// Block scope example with let
+{
+  let x = 10;
+  console.log(x); // 10 - accessible inside this block
+}
+// console.log(x); // ERROR: x is not defined outside the block</code></pre>
+    </section>
+
+ 
+    <section id="functions">
+      <h2>2. Functions</h2>
+      <p>
+        A function is a reusable block of code that performs a specific task.
+        Instead of writing the same code multiple times, user define it once in a function and
+        call it whenever needed.
+      </p>
+      <p>
+        Functions can accept parameters (inputs passed when calling the function)
+        and produce an output using the "return" keyword. If no "return" statement is written, the function returns "undefined" by default.
+      </p>
+      <p>There are two common ways to define a function:</p>
+      <ul>
+        <li>
+          <strong>Function Declaration</strong> — Uses the "function" keyword followed
+          by a name and parentheses. These are hoisted, i.e JavaScript moves them to
+          the top before running the code, so user can call them even before they appear in the file.
+        </li>
+        <li>
+          <strong>Function Expression</strong> — The function is assigned to a variable using
+          "const" or "let". These are NOT hoisted, so user must define them
+          before calling them.
+        </li>
+        <li>
+          <strong>Default Parameters</strong> — user can give a parameter a default value. If the
+          caller does not pass a value for that parameter, the default is used automatically.
+        </li>
+      </ul>
+
+      <h3>Example</h3>
+      <pre><code>// 1. Function Declaration
+function greet(name) {
+  return "Hello, " + name + "!";
+}
+console.log(greet("Alice")); // "Hello, Alice!"
+console.log(greet("Bob"));   // "Hello, Bob!"
+
+// 2. Function Expression
+const add = function(a, b) {
+  return a + b;
+};
+console.log(add(3, 4)); // 7
+
+// 3. Default Parameters
+function welcome(name = "Guest") {
+  return "Welcome, " + name + "!";
+}
+console.log(welcome());        // "Welcome, Guest!"  - no argument passed
+console.log(welcome("Alice")); // "Welcome, Alice!"  - argument overrides default
+
+// 4. Function with multiple parameters
+function calculateArea(width, height) {
+  const area = width * height;
+  return area;
+}
+console.log(calculateArea(5, 10)); // 50
+
+// 5. Function with no return value
+function printMessage(msg) {
+  console.log("Message: " + msg);
+  // no return - returns undefined
+}
+printMessage("Hello"); // prints: Message: Hello</code></pre>
+    </section>
+
+   
+    <section id="arrow">
+      <h2>3. Arrow Functions</h2>
+      <p>
+        Arrow functions are a shorter and cleaner way to write functions introduced in ES6.
+        Instead of writing the "function" keyword, user use the
+       "fat arrow" symbol "=&gt;". 
+        They are especially popular when passing a function as an argument to another function
+        like map() or filter().
+      </p>
+      <p>Important rules for arrow functions:</p>
+      <ul>
+        <li>
+          <strong>Single parameter</strong> — parentheses around the parameter are optional:
+          n =&gt; n * 2
+        </li>
+        <li>
+          <strong>No parameters or multiple parameters</strong> — parentheses are required:
+          () =&gt; ... or (a, b) =&gt; ...
+        </li>
+        <li>
+          <strong>Single-line body</strong> — if the body is just one expression, user can skip the
+          curly braces and the return keyword. The result is returned automatically.
+          This is called an "implicit return".
+        </li>
+        <li>
+          <strong>Multi-line body</strong> — if user need multiple statements, curly braces are used
+          and write "return" explicitly.
+        </li>
+        <li>
+          <strong>No own "this"</strong> — Arrow functions do not have their own
+          "this"binding. This means they behave differently from regular functions
+          when used inside objects or classes.
+        </li>
+      </ul>
+
+      <h3>Example</h3>
+      <pre><code>// Regular function vs Arrow function (doing the same thing)
+
+// Regular function
+function square(n) {
+  return n * n;
+}
+
+// Arrow function - full form
+const square = (n) => {
+  return n * n;
+};
+
+// Arrow function - short form (implicit return, single param)
+const square = n => n * n;
+console.log(square(4)); // 16
+
+// No parameters - empty parentheses required
+const sayHello = () => "Hello!";
+console.log(sayHello()); // "Hello!"
+
+// Two parameters
+const add = (a, b) => a + b;
+console.log(add(5, 3)); // 8
+
+// Multi-line arrow function - need curly braces and return
+const greetUser = (name, age) => {
+  const message = "Name: " + name + ", Age: " + age;
+  return message;
+};
+console.log(greetUser("Alice", 20)); // "Name: Alice, Age: 20"
+
+// Arrow functions are great as callbacks
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map(n => n * 2);
+console.log(doubled); // [2, 4, 6, 8, 10]</code></pre>
+    </section>
+
+    <section id="objects">
+  <h2>4. Objects</h2>
+
+  <p>
+    An object in JavaScript is a collection of related data organized as
+    "key-value pairs". Each key is called a "property", and the value
+    can be any data type. a string, number, boolean, array, another object, or even a function.
+    When a function is stored inside an object, it is called a "method".
+  </p>
+  <p>
+    Objects are useful when we want to group related information together. For example, a student
+    has a name, age, and grade. all of these belong together and can be stored in one object.
+  </p>
+  <ul>
+    <li>
+      <strong>Dot notation</strong> — The most common way to access a property:   student.name
+    </li>
+    <li>
+      <strong>Bracket notation</strong> — Accessing using a string key:  student["name"].
+      Useful when the property name is stored in a variable or contains special characters.
+    </li>
+    <li>
+      <strong>"this"</strong> — Inside a method, "this" refers to the object itself,
+      so we can access its other properties.
+    </li>
+    <li>
+      <strong>Destructuring</strong> — It is a shortcut syntax to extract multiple properties from
+      an object into individual variables at once.
+    </li>
+  </ul>
+
+  <h3>Example</h3>
+  <pre><code>const student = {
+  name: "Alice",
+  age: 20,
+  greet: function() {
+    return "Hi, I am " + this.name;
+  }
+};
+
+// dot notation
+console.log(student.name);    // "Alice"
+
+// bracket notation
+console.log(student["age"]);  // 20
+
+// calling a method
+console.log(student.greet()); // "Hi, I am Alice"
+
+// destructuring
+const { name, age } = student;
+console.log(name, age); // "Alice" 20
+
+// adding a new property
+student.grade = "A";
+console.log(student.grade); // "A"</code></pre>
+</section>
+
+   
+    <section id="map">
+  <h2>5. map()</h2>
+
+  <p>
+    The map() method is a built-in JavaScript array function that
+    transforms every item in an array and returns a new array
+    with the transformed values. The original array is not changed.
+    The returned array always has the same number of items as the original.
+  </p>
+  <p>
+    user pass a "callback function" to map(). This callback runs once for each item.
+    Whatever the callback returns becomes the value at that same position in the new array.
+  </p>
+
+  <h3>Example</h3>
+  <pre><code>const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map(n => n * 2);
+console.log(doubled);  // [2, 4, 6, 8, 10]
+console.log(numbers);  // [1, 2, 3, 4, 5] - original is unchanged
+
+// extract one field from array of objects
+const students = [
+  { name: "Alice", grade: 90 },
+  { name: "Bob",   grade: 75 },
+  { name: "Carol", grade: 88 }
+];
+
+const names = students.map(student => student.name);
+console.log(names); // ["Alice", "Bob", "Carol"]</code></pre>
+</section>
+
+    <section id="filter">
+  <h2>6. filter()</h2>
+
+  <p>
+    The filter() method creates a new array that contains only the items
+    from the original array that pass a condition.
+    It runs a "callback function" for each item. If the callback returns "true",
+    the item is included. If it returns "false", the item is skipped.
+    Like map(), filter() does not change the original array.
+  </p>
+  <ul>
+    <li>Keep only numbers that meet a condition (even, greater than a value, etc.)</li>
+    <li>Find students who passed an exam</li>
+    <li>Remove items that do not match a search term</li>
+  </ul>
+
+  <h3>Example</h3>
+  <pre><code>const numbers = [1, 2, 3, 4, 5, 6];
+const evens = numbers.filter(n => n % 2 === 0);
+console.log(evens); // [2, 4, 6]
+
+// filter students who passed
+const students = [
+  { name: "Alice", grade: 85 },
+  { name: "Bob",   grade: 45 },
+  { name: "Carol", grade: 92 }
+];
+
+const passed = students.filter(student => student.grade >= 60);
+console.log(passed); // [{ name: "Alice", grade: 85 }, { name: "Carol", grade: 92 }]
+
+// chaining filter() and map()
+const passingNames = students
+  .filter(student => student.grade >= 60)
+  .map(student => student.name);
+console.log(passingNames); // ["Alice", "Carol"]</code></pre>
+</section>
+
+    <section id="spread">
+  <h2>7. Spread Operator (...)</h2>
+
+  <p>
+    The spread operator is written as three dots "...".
+    It allows to "expand" or "unpack" the elements of an array, or the
+    properties of an object, into another array or object. It was introduced in ES6.
+  </p>
+  <ul>
+    <li>
+      <strong>Copying an array or object</strong> — It creates a "shallow copy" so the original
+      is not affected when you modify the copy.
+    </li>
+    <li>
+      <strong>Merging arrays or objects</strong> — It combines two or more arrays or objects into one.
+    </li>
+    <li>
+      <strong>Adding new items without mutating</strong> — It adds an item to an array or a property
+      to an object without modifying the original.
+    </li>
+    <li>
+      <strong>Passing array items as function arguments</strong> — for example,
+      Math.max(...nums) passes all array values as separate arguments.
+    </li>
+  </ul>
+
+  <h3>Example</h3>
+  <pre><code>// copying an array
+const original = [1, 2, 3];
+const copy = [...original];
+copy.push(4);
+console.log(original); // [1, 2, 3] - unchanged
+console.log(copy);     // [1, 2, 3, 4]
+
+// merging arrays
+const a = [1, 2];
+const b = [3, 4];
+console.log([...a, ...b]); // [1, 2, 3, 4]
+
+// merging objects
+const basicInfo = { name: "Alice", age: 20 };
+const extra = { email: "alice@example.com" };
+const fullProfile = { ...basicInfo, ...extra };
+console.log(fullProfile);
+// { name: "Alice", age: 20, email: "alice@example.com" }
+
+// overriding a property
+const updated = { ...basicInfo, age: 25 };
+console.log(updated); // { name: "Alice", age: 25 }</code></pre>
+</section>
+
+<footer>
+    <p>Made by Tabita mali &copy; 2026</p>
+</footer>
+</body>
+</html>

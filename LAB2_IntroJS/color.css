@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #222;
+  background-color: white;
+}
+
+header {
+  background-color: dimgray;
+  color: white;
+  padding: 30px 40px;
+}
+
+header h1 {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+header p {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+#navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #f1f1f1;
+  border-bottom: 2px solid dimgray;
+  padding: 10px 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+#navbar a {
+  text-decoration: none;
+  color: dimgray;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  padding: 5px 12px;
+  border: 1px solid dimgray;
+  border-radius: 4px;
+  background-color: white;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+#navbar a:hover {
+  background-color: dimgray;
+  color: white;
+}
+
+main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 40px 60px 40px;
+}
+
+section {
+  margin-bottom: 60px;
+  padding-bottom: 40px;
+}
+
+section:last-child {
+  border-bottom: none;
+}
+
+section h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: dimgray;
+  margin-bottom: 16px;
+  padding-bottom: 6px;
+}
+
+section h3 {
+  font-size: 17px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+section p {
+  margin-bottom: 12px;
+  color: #333;
+}
+
+section ul {
+  margin: 10px 0 14px 24px;
+  color: #333;
+}
+
+section ul li {
+  margin-bottom: 8px;
+}
+
+code {
+  background-color: #f0f0f0;
+  color: #c7254e;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-left: 4px solid dimgray;
+  border-radius: 4px;
+  padding: 20px;
+  overflow-x: auto;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+pre code {
+  background-color: transparent;
+  color: #222;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  padding: 0;
+  border-radius: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #888;
+  margin-top: 40px;
+}

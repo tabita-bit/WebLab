@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <h1>PORTFOLIO</h1>
+    <ul>
+
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#calendar">Calendar</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<section id="about">
+
+  <h2>Who I Am</h2>
+  <div class="about-grid">
+    <div class="home-photo">
+            <img src="womann/woman.jpg" alt="Profile Image">
+        </div>
+    <div class="about-text">
+      <p>Hello! I'm a web development student Tabita Mali studying at KEC passionate about creating amazing web experiences. I'm currently learning HTML, CSS, JavaScript, React, and backend development.</p>
+      <p>I enjoy solving problems with code and turning ideas into real, working projects. I'm always looking to learn new technologies and improve my skills.
+        i have a strong interest in frontend development and love creating beautiful and user-friendly interfaces.
+      </p>
+      <p>When I'm not coding, I enjoy exploring new ideas and working on creative projects.</p>
+        <button onclick="seeMyWork()">see my work</button>
+        <br> 
+    <br> 
+        <button onclick="seeCalendar()">see calendar</button>
+        <br> <br>
+        <button onclick="seeContact()">Get In Touch</button>
+
+    </div>
+    </div>
+</section>
+
+<section id="projects">
+    <h2>My Projects</h2>
+    <div class="projects-container">
+        <div class="project-card">
+            <h3>Portfolio Website</h3>
+            <p>This is my personal portfolio website made using HTML, CSS and JavaScript.</p>
+        </div>
+        <div class="project-card">
+            <h3>Todo App</h3>
+            <p>A todo list app made with React where user can add and delete tasks.</p>
+        </div>
+        <div class="project-card">
+            <h3>Login Page</h3>
+            <p>A login and register form made with React with custom input components.</p>
+        </div>
+        <div class="project-card">
+            <h3>Backend API</h3>
+            <p>A backend API made with FastAPI and Python with login and register features.</p>
+        </div>
+        <div class="project-card">
+            <h3>Javascript Fundamentals</h3>
+            <p>A JavaScript practice project covering variables, functions, arrow functions, objects, map, filter and spread operators.</p>
+        </div>  
+        <div class="project-card">
+            <h3>Todo Backend API</h3>
+            <p>A backend API made with FastAPI and Python that displays todos based on the logged in user.</p>
+        </div>
+    </div>
+</section>
+
+<section id="calendar">
+    <h2>Calendar</h2>
+    <div class="calendar-box">
+        <div class="cal-top">
+            <button onclick="changeMonth(-1)">&#8249;</button>
+            <h3 id="monthYear"></h3>
+            <button onclick="changeMonth(1)">&#8250;</button>
+        </div>
+        <div class="day-names">
+            <span>Sun</span>
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+        </div>
+        <div class="days-grid" id="daysGrid"></div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact for more information.</h2>
+    <p>Email: kan080bct068@gmail.com</p>
+    <p>GitHub: github.com/tabita-bit</p>
+    <p>contact for info</p>
+</section>
+
+<footer>
+    <p>Made by Tabita Mali &copy; 2026</p>
+</footer>
+
+<script>
+ function seeMyWork() {
+        document.getElementById("projects").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function seeCalendar() {
+        document.getElementById("calendar").scrollIntoView({ behavior: "smooth" });
+    }
+ function seeContact() {
+        document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+    }
+    var currentMonth = new Date().getMonth();
+    var currentYear = new Date().getFullYear();
+
+    var monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+
+    function showCalendar() {
+        var today = new Date();
+        var firstDay = new Date(currentYear, currentMonth, 1).getDay();
+        var totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+        document.getElementById("monthYear").textContent = monthNames[currentMonth] + " " + currentYear;
+
+        var grid = document.getElementById("daysGrid");
+        grid.innerHTML = "";
+
+        for (var i = 0; i < firstDay; i++) {
+            var empty = document.createElement("div");
+            empty.className = "empty";
+            empty.textContent = "";
+            grid.appendChild(empty);
+        }
+
+        for (var d = 1; d <= totalDays; d++) {
+            var day = document.createElement("div");
+            day.textContent = d;
+
+            if (d === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+                day.className = "today";
+            }
+
+            grid.appendChild(day);
+        }
+    }
+
+    function changeMonth(direction) {
+        currentMonth = currentMonth + direction;
+
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear = currentYear + 1;
+        }
+
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear = currentYear - 1;
+        }
+
+        showCalendar();
+    }
+
+    showCalendar();
+</script>
+
+</body>
+</html>
